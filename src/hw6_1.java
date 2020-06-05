@@ -1,5 +1,5 @@
 /*
- * HackerRank link:https://www.hackerrank.com/contests/cst370-su20-hw5/challenges/connect-components/submissions/code/1323830193
+ * HackerRank link:https://www.hackerrank.com/contests/cst370-su20-hw6/challenges/max-heap-1-2/submissions/code/1324073891
  * Title: hw6_1.java
  * Abstract: Reads in numbers by user and creates max heap if not already there.  Commands for displayMax, insert,
 *            deleteMax, delete, update and display allow the user to modify and view the heap in an array fashion.
@@ -75,32 +75,102 @@ public class hw6_1 {
             String todo = in.next();
 
             if (todo.equals("displayMax")) {
+                // prints out the max which is first node of the heap
                 System.out.println(heap[1]);
             }
             else if (todo.equals("insert")) {
-                System.out.println("insert command");
+                // reads in next number as well to add to heap
                 int insertNum = in.nextInt();
-                System.out.println("number to be inserted is " + insertNum);
+
+                // create new temp array sized +1
+                int[] tempArray = new int[heap.length+1];
+
+                // populate the values from heap to tempArray
+                for (int i = 0; i < heap.length; i++) {
+                    tempArray[i] = heap[i];
+                }
+
+                // add the new value to tempArray
+                tempArray[heap.length] = insertNum;
+
+                // set heap array to temp
+                heap = tempArray;
+
+                // then we need to heapify to make sure it is still a max heap
+                for (int i = (heap.length/2); i > 0; i--) {
+                    heapify(heap, heap.length, i);
+                }
             }
             else if (todo.equals("deleteMax")) {
-                System.out.println("deleteMax command");
-                System.out.println("number to be deleted is " + heap[1]);
+                // deletes the max value at heap[1] by replacing heap[1] with the last heap value
+                // create new temp array sized -1
+                int[] tempArray = new int[heap.length-1];
+
+                // populate the values from heap to tempArray skipping heap[1] where the max is
+                tempArray[0] = heap[0];
+                tempArray[1] = heap[heap.length-1];
+                for (int i = 2; i < heap.length-1; i++) {
+
+                    tempArray[i] = heap[i];
+                }
+
+                // set heap array to temp
+                heap = tempArray;
+
+                // then we need to heapify to make sure it is still a max heap
+                for (int i = (heap.length/2); i > 0; i--) {
+                    heapify(heap, heap.length, i);
+                }
             }
             else if (todo.equals("delete")) {
-                System.out.println("delete command");
+                // deletes a particular value in the heap by replacing it with the last heap value
                 int deleteNum = in.nextInt();
-                System.out.println("number to be deleted is " + deleteNum);
 
+                // create new temp array sized -1
+                int[] tempArray = new int[heap.length-1];
+
+                // find the index in heap of the number we want to delete
+                int deleteIndex = 0;
+                for (int i = 0; i < heap.length; i++) {
+                    if (heap[i] == deleteNum) {
+                        deleteIndex = i;
+                    }
+                }
+
+                // populate the values from heap to tempArray skipping heap[1] where the max is
+                for (int i = 0; i < deleteIndex; i++) {
+
+                    tempArray[i] = heap[i];
+                }
+                tempArray[deleteIndex] = heap[heap.length-1];
+                for (int i = deleteIndex+1; i < heap.length-1; i++) {
+
+                    tempArray[i] = heap[i];
+                }
+
+                // set heap array to temp
+                heap = tempArray;
+
+                // then we need to heapify to make sure it is still a max heap
+                for (int i = (heap.length/2); i > 0; i--) {
+                    heapify(heap, heap.length, i);
+                }
             }
             else if (todo.equals("update")) {
-                System.out.println("update command");
+                // updates a particular value in the heap by replacing it with the entered value
                 int updateIndex = in.nextInt();
                 int updateNum = in.nextInt();
-                System.out.println("number to be updated is " + updateNum + " at " + updateIndex);
 
-                // then we heapify
+                // update the value at index updateIndex with updateNum
+                heap[updateIndex] = updateNum;
+
+                // then we need to heapify to make sure it is still a max heap
+                for (int i = (heap.length/2); i > 0; i--) {
+                    heapify(heap, heap.length, i);
+                }
             }
             else if (todo.equals("display")) {
+                // prints out the heap in array format
                 for (int i = 1; i < heap.length; i++) {
                     System.out.print(heap[i] + " ");
                 }
