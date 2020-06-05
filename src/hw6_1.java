@@ -137,7 +137,7 @@ public class hw6_1 {
                     }
                 }
 
-                // populate the values from heap to tempArray skipping heap[1] where the max is
+                // populate the values from heap to tempArray manually doing the deleteIndex with the last value
                 for (int i = 0; i < deleteIndex; i++) {
 
                     tempArray[i] = heap[i];
