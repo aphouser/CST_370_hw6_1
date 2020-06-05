@@ -1,7 +1,8 @@
 /*
  * HackerRank link:https://www.hackerrank.com/contests/cst370-su20-hw5/challenges/connect-components/submissions/code/1323830193
  * Title: hw6_1.java
- * Abstract: Reads in graph by user input.  Checks for connectivity and adds edges if they are needed to connect
+ * Abstract: Reads in numbers by user and creates max heap if not already there.  Commands for displayMax, insert,
+*            deleteMax, delete, update and display allow the user to modify and view the heap in an array fashion.
  * Author: Adam Houser
  * ID: 1144
  * Date: 6/4/2020
